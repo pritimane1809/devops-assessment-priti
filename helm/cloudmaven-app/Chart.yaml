@@ -1,0 +1,7 @@
+apiVersion: v2
+name: cloudmaven-app
+description: Two-tier Node.js application for the CloudMaven assessment
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+

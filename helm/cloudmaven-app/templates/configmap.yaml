@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "cloudmaven.fullname" . }}-config
+data:
+  NODE_ENV: "production"
+  SERVICE_NAME: "cloudmaven-backend"
+  API_URL: "http://{{ include "cloudmaven.fullname" . }}-backend:{{ .Values.backend.port }}"
+

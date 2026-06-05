@@ -1,0 +1,13 @@
+{
+  "name": "cloudmaven-frontend",
+  "version": "1.0.0",
+  "description": "Sample frontend for the CloudMaven assessment.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "4.19.2"
+  }
+}
+

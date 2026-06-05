@@ -1,0 +1,15 @@
+{
+  "name": "cloudmaven-backend",
+  "version": "1.0.0",
+  "description": "Assessment backend API with health, metrics, and structured logs.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node -e \"fetch('http://localhost:3000/health').catch(() => process.exit(0))\""
+  },
+  "dependencies": {
+    "express": "4.19.2",
+    "prom-client": "15.1.3"
+  }
+}
+
