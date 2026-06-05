@@ -22,35 +22,29 @@ A **production-style DevOps project** deploying a **2-tier Node.js application**
 
 ## 🏗️ System Architecture
 
-```mermaid
 flowchart TB
-  user[🌍 User] --> ingress[🌐 Nginx Ingress]
 
-  ingress --> frontend[🖥️ Frontend Service]
-  frontend --> backend[⚙️ Backend API]
+  user[User] --> ingress[Nginx Ingress]
 
-  backend --> metrics[📊 Prometheus Metrics]
-  backend --> logs[📄 JSON Logs]
+  ingress --> frontend[Frontend Service]
+  frontend --> backend[Backend API]
 
-  subgraph AWS Cloud ☁️
-    subgraph VPC [VPC - CloudDrove]
-      pub[Public Subnets]
-      priv[Private Subnets]
-      eks[EKS Cluster]
-      nodes[Managed Node Groups]
+  backend --> prometheus[Prometheus - Metrics]
+  backend --> logs[Logging - Fluent Bit]
 
-      pub --> priv
-      eks --> nodes
-    end
+  prometheus --> grafana[Grafana Dashboards]
+
+  logs --> elasticsearch[Elasticsearch]
+  elasticsearch --> kibana[Kibana]
+
+  subgraph kubernetes[Kubernetes Cluster - EKS]
+    frontend
+    backend
+    prometheus
+    logs
+    elasticsearch
+    kibana
   end
-
-  nodes --> frontend
-  nodes --> backend
-
-  prometheus[📈 Prometheus] --> grafana[📊 Grafana]
-  fluentbit[🔥 Fluent Bit] --> elastic[📦 Elasticsearch]
-  elastic --> kibana[📊 Kibana]
-```
 
 ---
 
@@ -281,20 +275,10 @@ TF_LOCK_TABLE
 
 | Issue | Fix |
 |------|-----|
-| EKS image pull failure | Added `AmazonEC2ContainerRegistryReadOnly` IAM policy |
-| Load balancer unhealthy targets | Fixed readiness probes & service ports |
-| Logs not visible in Kibana | Fixed Fluent Bit parser + index naming |
-| HPA not scaling | Installed metrics-server & CPU requests |
-
----
-
-## 🚀 Future Enhancements
-
-- 🔐 AWS Load Balancer Controller + TLS (ACM)
-- 🔑 IRSA for secure service access
-- 🌍 Multi-environment Terraform (dev/stage/prod)
-- 🛡️ Container security scanning
-- 🔄 GitOps using ArgoCD
+| Issue in Pulling EKS Container Images | correcting image repository/tag |
+| Cannot access Kibana | 
+|Helm Upgrade Failure due to Stuck Release State |performing rollback/uninstall to clear stuck|
+|Grafana Showing “No Data” Dashboards| 
 
 ---
 
@@ -307,5 +291,3 @@ TF_LOCK_TABLE
 ✔ Cloud-native architecture design  
 
 ---
-
-> 💡 Built as part of a DevOps internship assessment showcasing real-world cloud engineering skills.
