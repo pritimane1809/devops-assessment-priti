@@ -111,7 +111,15 @@ jobs:
           docker push $ECR_REGISTRY/cloudmaven-dev-frontend:$IMAGE_TAG
 
       - name: Update kubeconfig
-        run: aws eks update-kubeconfig --region $AWS_REGION --name cloudmaven-dev-eks
+        run: |
+         aws eks update-kubeconfig \
+         --region $AWS_REGION \
+         --name cloudmaven-dev-eks
+
+      - name: Verify cluster access
+        run: |
+         kubectl get nodes
+         kubectl get ns
 
       - name: Setup Helm
         uses: azure/setup-helm@v4
