@@ -22,29 +22,7 @@ A **production-style DevOps project** deploying a **2-tier Node.js application**
 
 ## 🏗️ System Architecture
 
-flowchart TB
-
-  user[User] --> ingress[Nginx Ingress]
-
-  ingress --> frontend[Frontend Service]
-  frontend --> backend[Backend API]
-
-  backend --> prometheus[Prometheus - Metrics]
-  backend --> logs[Logging - Fluent Bit]
-
-  prometheus --> grafana[Grafana Dashboards]
-
-  logs --> elasticsearch[Elasticsearch]
-  elasticsearch --> kibana[Kibana]
-
-  subgraph kubernetes[Kubernetes Cluster - EKS]
-    frontend
-    backend
-    prometheus
-    logs
-    elasticsearch
-    kibana
-  end
+![alt text](mermaid-diagram.png)
 
 ---
 
